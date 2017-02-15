@@ -440,7 +440,7 @@ def fabric_notes(options)
   jira_changelog = jira_only_changelog(options)
   changelog = ''
   changelog += options[:notes]
-  changelog += "\n" unless config[:notes].empty?
+  changelog += "\n" unless options[:notes].empty?
   changelog += "Branch: #{current_branch} (#{short_hash})\n"
   changelog += jira_changelog
 end
