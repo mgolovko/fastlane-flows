@@ -86,7 +86,8 @@ def obtain_config(options)
   # Setting up a new version
   puts "info plist path #{options[:info_plist_path]}"
   current_version = get_version_number(xcodeproj: options[:xcodeproj_name])
-  options[:version_number] = current_version
+  time = DateTime.now.strftime("%Y-%m-%d %H:%M:%S")
+  options[:version_number] = options[:time_version] ? "#{options[:branch]} #{time}" : current_version
 
   current_build = get_info_plist_value(
     path: options[:info_plist_path],
