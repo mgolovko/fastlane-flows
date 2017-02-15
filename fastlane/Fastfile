@@ -85,13 +85,8 @@ def obtain_config(options)
 
   # Setting up a new version
   puts "info plist path #{options[:info_plist_path]}"
-  if options[:time_version] 
-    time = DateTime.now.strftime("%Y-%m-%d %H:%M:%S")
-    options[:version_number] = "#{options[:branch]} #{time}"
-  else
-    current_version = get_version_number(xcodeproj: options[:xcodeproj_name])
-    options[:version_number] = current_version
-  end
+  current_version = get_version_number(xcodeproj: options[:xcodeproj_name])
+  options[:version_number] = current_version
 
   current_build = get_info_plist_value(
     path: options[:info_plist_path],
@@ -246,11 +241,6 @@ def prepare_project(options)
     UI.message("Build number incremented to #{build_number}")
   end
 
-  if options[:time_version]
-    update_build_and_version_number_with_extensions(options, options[:current_build])
-    UI.message("Build time version #{options[:version_number]}")
-  end 
-
 	make_provisioning_profiles_all_right(options, !adhock)
 
 	if options[:oclint]
@@ -342,7 +332,7 @@ def fabric(options)
     api_token: ENV['CRASHLYTICS_API_TOKEN'],
     build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
     notifications: "YES",
-    notes: jira_only_changelog(options),
+    notes: fabric_notes(options),
     debug: true,
     ipa_path: "#{options[:sheme]}.ipa",
     groups: crashlytics_groups
@@ -443,9 +433,19 @@ def ramb_changelog(options)
   changelog ||= 'no changes'
 end
 
+def fabric_notes(options)
+  current_branch = git_branch()
+  jira_changelog = jira_only_changelog(options)
+  changelog = ''
+  changelog += config[:notes]
+  changelog += "\n" unless config[:notes].empty?
+  changelog += "Branch: #{current_branch}\n"
+  changelog += jira_changelog
+end
+
 def jira_only_changelog(options)
   raw_changelog = ramb_raw_changelog(options)
-  return "empty" unless raw_changelog != nil
+  return "Jira: empty" unless raw_changelog != nil
 
   regexp = Regexp.new("(#{options[:jira_project]}-[0-9]*)(?:.*\#comment (.*))?").freeze
 
