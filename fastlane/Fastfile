@@ -438,10 +438,7 @@ def fabric_notes(options)
   commit = last_git_commit()
   short_hash = commit[:abbreviated_commit_hash]
   jira_changelog = jira_only_changelog(options)
-  changelog = ''
-  changelog += options[:notes]
-  changelog += "\n" unless options[:notes].empty?
-  changelog += "Branch: #{current_branch} (#{short_hash})\n"
+  changelog = "Branch: #{current_branch} (#{short_hash})\n"
   changelog += jira_changelog
 end
 
