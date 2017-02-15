@@ -85,13 +85,13 @@ def obtain_config(options)
 
   # Setting up a new version
   puts "info plist path #{options[:info_plist_path]}"
-  #if options[:time_version] 
+  if options[:time_version] 
     time = DateTime.now.strftime("%Y-%m-%d %H:%M:%S")
     options[:version_number] = "#{options[:branch]} #{time}"
-  #else
-  #  current_version = get_version_number(xcodeproj: options[:xcodeproj_name])
-  #  options[:version_number] = current_version
-  #end
+  else
+    current_version = get_version_number(xcodeproj: options[:xcodeproj_name])
+    options[:version_number] = current_version
+  end
 
   current_build = get_info_plist_value(
     path: options[:info_plist_path],
@@ -245,6 +245,11 @@ def prepare_project(options)
   	Actions.lane_context[SharedValues::BUILD_NUMBER] = build_number
     UI.message("Build number incremented to #{build_number}")
   end
+
+  if options[:time_version]
+    update_build_and_version_number_with_extensions(options, options[:current_build])
+    UI.message("Build time version #{options[:version_number]}")
+  end 
 
 	make_provisioning_profiles_all_right(options, !adhock)
 
