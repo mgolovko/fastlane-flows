@@ -6,7 +6,9 @@ module Fastlane
 
     class GitCheckoutAction < Action
       def self.run(params)
-        remote_branch = params[:remote_branch]
+        # Remove origin subname
+        remote_branch = params[:remote_branch].gsub(/^origin\//, '')
+
         Actions.sh("git fetch")
         Actions.sh("git checkout #{remote_branch}")
         Actions.sh("git pull origin #{remote_branch}")
