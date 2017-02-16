@@ -297,7 +297,7 @@ def artifactory(options)
     complete_version_number = "#{options[:version_number]}(#{options[:current_build]})"
     message = "Bumped version number tо #{complete_version_number}"
     sh("git commit -am #{message.shellescape}")
-    UI.success("Successfully committed #{message.shellescape})
+    UI.success("Successfully committed #{message.shellescape}")
     # Little hack: deleting all local tags to avoid problems with tag 'nightly/latest'
     sh("git tag | xargs git tag -d")
     # Add tag to git
