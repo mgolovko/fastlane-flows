@@ -72,7 +72,7 @@ end
 def obtain_config(options)
 
   predefined_branch = options[:branch].gsub(/^origin\//, '')
-  options[:branch] = 'develop' if predefined_branch.to_s == ''
+  options[:branch] = predefined_branch.to_s == '' ? 'develop' : predefined_branch
 
   options[:xcodeproj_name] = ENV['XCODEPROJ_NAME']
   options[:xcworkspace_name] = ENV['XCWORKSPACE_NAME']
