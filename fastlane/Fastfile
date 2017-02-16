@@ -434,7 +434,7 @@ def ramb_changelog(options)
 end
 
 def fabric_notes(options)
-  current_branch = git_branch()
+  current_branch = options[:branch]
   commit = last_git_commit()
   short_hash = commit[:abbreviated_commit_hash]
   jira_changelog = jira_only_changelog(options)
