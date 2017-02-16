@@ -104,7 +104,7 @@ def obtain_config(options)
   # Setting up the folder for FTP upload
   options[:ftp_path] = options[:nightly] ? 'nightly' : 'dev'
 
-  options[:export_method] = options[:enterprise] ? 'enterprise' : (options[:testflight] ? 'app-store' : 'ad-hoc')
+  options[:export_method] = options[:enterprise] ? 'enterprise' : 'app-store'
 
   options[:tag_match_pattern] = options[:nightly] ? 'nightly/*' : 'distribution/*'
 
