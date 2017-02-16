@@ -293,18 +293,13 @@ def artifactory(options)
   if options[:increment_build]
     build_number = options[:current_build].to_i + 1
     update_build_and_version_number_with_extensions(options, build_number)
-    
     # Makes a bump version commit
-    complete_version_number = version_string(
-      options[:version_number],
-      options[:current_build]
-    )
+    complete_version_number = "#{options[:version_number]}(#{options[:current_build]})"
     commit_version_bump(
       message: "Bumped version number tо #{complete_version_number}",
       xcodeproj: ENV['XCODEPROJ_NAME'],
       force: true
     )
-
     # Little hack: deleting all local tags to avoid problems with tag 'nightly/latest'
     sh("git tag | xargs git tag -d")
     # Add tag to git
