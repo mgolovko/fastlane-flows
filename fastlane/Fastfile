@@ -113,7 +113,7 @@ def obtain_config(options)
   day = Date.today.day
   month = Date.today.month
   tag_name = options[:nightly] ? 'nightly' : 'distribution'
-  options[:tag_name] = "tag_name/#{year}/#{month_name}/#{day}/#{DateTime.now.strftime("%H-%M")}"
+  options[:tag_name] = "#{tag_name}/#{year}/#{month_name}/#{day}/#{DateTime.now.strftime("%H-%M")}"
 
   options[:main_target] ||= options[:sheme]
   options[:team_name] = options[:enterprise] ? ENV['ENTERPRISE_TEAM_NAME'] : ENV['TEAM_NAME'] 
