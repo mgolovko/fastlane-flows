@@ -370,7 +370,7 @@ def testflight(options)
   pilot(
     skip_submission: true,
     changelog: jira_only_changelog(options),
-    ipa: "./Kassa.ipa"
+    skip_waiting_for_build_processing: true
   )
 end
 
