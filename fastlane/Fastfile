@@ -365,6 +365,7 @@ end
 
 def testflight(options)
   # Uploading the final IPA file to Testflight (without distribution)
+  ENV["FASTLANE_ITUNES_TRANSPORTER_USE_SHELL_SCRIPT"] = 1
   ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t DAV"
   pilot(
     skip_submission: true,
