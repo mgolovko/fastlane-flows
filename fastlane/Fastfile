@@ -1,4 +1,3 @@
-ENV['DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS'] = '-t DAV'
 desc "Main Lane - Entry Point"
 lane :main do |options|
 
