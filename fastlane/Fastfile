@@ -368,7 +368,8 @@ def testflight(options)
   ENV["DELIVER_ITMSTRANSPORTER_ADDITIONAL_UPLOAD_PARAMETERS"] = "-t DAV"
   pilot(
     skip_submission: true,
-    changelog: jira_only_changelog(options)
+    changelog: jira_only_changelog(options),
+    ipa: "./Kassa.ipa"
   )
 end
 
